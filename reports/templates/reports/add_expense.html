@@ -1,0 +1,15 @@
+{% extends "reports/base.html" %}
+
+{% block title %}Добавить расход - Bizdin Et{% endblock %}
+
+{% block content %}
+<h2>Добавить расход</h2>
+<form method="POST">
+    {% csrf_token %}
+    <div class="mb-3">
+        {{ form.as_p }}
+    </div>
+    <button type="submit" class="btn btn-success">Добавить</button>
+</form>
+<a href="{% url 'expense_list' %}" class="btn btn-secondary mt-3">Назад</a>
+{% endblock %}

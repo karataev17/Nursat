@@ -1,0 +1,31 @@
+{% extends "reports/base.html" %}
+
+{% block title %}Продажи - Bizdin Et{% endblock %}
+
+{% block content %}
+<h2>Список продаж</h2>
+<a href="{% url 'add_sale' %}" class="btn btn-primary mb-3">Добавить продажу</a>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Продукт</th>
+            <th>Количество</th>
+            <th>Общая сумма</th>
+            <th>Дата</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for sale in sales %}
+        <tr>
+            <td>{{ sale.id }}</td>
+            <td>{{ sale.product.name }}</td>
+            <td>{{ sale.quantity }}</td>
+            <td>{{ sale.total_price }}</td>
+            <td>{{ sale.date }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

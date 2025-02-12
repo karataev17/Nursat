@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="report-container">
+    <div class="report-header">
+        <h2 class="report-title">Отчет</h2>
+        <p class="report-subtitle">Ежедневный отчет по расходам и доходам</p>
+    </div>
+
+    <div class="report-actions">
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="Поиск...">
+            <button class="search-btn"><i class="fas fa-search"></i></button>
+        </div>
+        <button class="save-btn"><i class="fas fa-save"></i> Сохранить</button>
+    </div>
+
+    <table class="report-table">
+        <thead>
+            <tr>
+                <th>Наименование</th>
+                <th>Сумма</th>
+                <th>Дата и Время</th>
+                <th>Действие</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Оборотка</td>
+                <td>350 000</td>
+                <td>12:25</td>
+                <td><button class="delete-btn"><i class="fas fa-trash-alt"></i> Удалить</button></td>
+            </tr>
+            <tr>
+                <td>Зп Муза</td>
+                <td>12 000</td>
+                <td>14:50</td>
+                <td><button class="delete-btn"><i class="fas fa-trash-alt"></i> Удалить</button></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="report-footer">
+        <button class="add-btn"><i class="fas fa-plus"></i> Добавить</button>
+        <button class="generate-btn"><i class="fas fa-file-alt"></i> Сформулировать отчет</button>
+    </div>
+</div>
+{% endblock %}

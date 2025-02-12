@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card mx-auto" style="max-width: 400px;">
+        <div class="card-body text-center">
+            <h4 class="card-title">Выход из аккаунта</h4>
+            <p class="card-text">Вы уверены, что хотите выйти?</p>
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Выйти</button>
+                <a href="{% url 'dashboard' %}" class="btn btn-secondary">Отмена</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

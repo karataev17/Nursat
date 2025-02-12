@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="analysis-container">
+    <div class="header-section">
+        <h2 class="analysis-title">Анализ данных <strong>Косшыгулы 25 (298)</strong></h2>
+        <p class="analysis-subtitle">Аналитика продаж за месяц</p>
+    </div>
+
+    <div class="filter-section">
+        <button class="btn btn-danger">+ Добавить раздел</button>
+        <select class="data-filter">
+            <option>Косшыгулы 25</option>
+            <option>Туркестан 18</option>
+            <option>Сауран 2</option>
+            <option>Сатпаева 3</option>
+        </select>
+    </div>
+
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Наименование</th>
+                <th>Количество</th>
+                <th>Розничная сумма</th>
+                <th>Сумма себес</th>
+                <th>Чистая прибыль</th>
+                <th>Рентабельность %</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Гов. мякоть</td>
+                <td>9,58</td>
+                <td>53,141.40</td>
+                <td>3849</td>
+                <td>16,267.42</td>
+                <td>44%</td>
+            </tr>
+            <tr>
+                <td>Ассорти колбаски</td>
+                <td>2,74</td>
+                <td>18,058.00</td>
+                <td>4384</td>
+                <td>6,045.84</td>
+                <td>50%</td>
+            </tr>
+            <tr>
+                <td>Куриные колбаски</td>
+                <td>3,95</td>
+                <td>19,994.20</td>
+                <td>3839</td>
+                <td>4,330.15</td>
+                <td>32%</td>
+            </tr>
+        </tbody>
+    </table>
+    <p class="results-count">Показано 1 - 8 результатов из 298</p>
+</div>
+
+<style>
+.analysis-container {
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.header-section {
+    margin-bottom: 20px;
+}
+
+.analysis-title {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.analysis-subtitle {
+    font-size: 16px;
+    color: #6c757d;
+}
+
+.filter-section {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.data-table th, .data-table td {
+    border: 1px solid #dee2e6;
+    padding: 10px;
+    text-align: left;
+}
+
+.data-table th {
+    background: #e9ecef;
+}
+
+.results-count {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #6c757d;
+}
+</style>
+{% endblock %}

@@ -1,0 +1,889 @@
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #F7F9FC;
+    margin: 0;
+    padding: 0;
+}
+body {
+    background-color: #f9fbfc;
+    font-family: Arial, sans-serif;
+}
+
+.login-container {
+    width: 400px;
+    margin: 50px auto;
+    padding: 30px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.login-container img {
+    width: 120px;
+    margin-bottom: 20px;
+}
+
+.login-container h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.login-container form {
+    text-align: left;
+}
+
+.login-container .form-control {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.login-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: #005eff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.login-container button:hover {
+    background-color: #0044cc;
+}
+
+.login-container p {
+    margin-top: 10px;
+}
+
+.login-container a {
+    color: #005eff;
+    text-decoration: none;
+}
+
+.login-container a:hover {
+    text-decoration: underline;
+}
+/* Левое меню */
+.sidebar {
+    width: 250px;
+    background: #2c3e50;
+    color: white;
+    padding: 20px;
+    height: 100vh;
+}
+
+.sidebar .logo img {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.sidebar .nav-links li {
+    list-style: none;
+    margin: 15px 0;
+}
+
+.sidebar .nav-links li a {
+    text-decoration: none;
+    color: white;
+}
+
+/* Основной контент */
+.content {
+    flex: 1;
+    padding: 20px;
+}
+
+/* Верхнее меню */
+.top-menu {
+    display: flex;
+    justify-content: space-between;
+    background: #f8f9fa;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.search-bar {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.right-menu {
+    display: flex;
+    gap: 10px;
+}
+
+/* Карточки выбора мяса */
+.data-categories {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.category-card {
+    flex: 1;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.category-card button {
+    padding: 10px;
+    background: #005eff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.category-card.horse { border: 2px solid green; }
+.category-card.beef { border: 2px solid yellow; }
+.category-card.lamb { border: 2px solid blue; }
+.category-card.chicken { border: 2px solid red; }
+
+/* Статистика */
+.statistics {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.stat-card {
+    flex: 1;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Футер */
+footer {
+    text-align: center;
+    padding: 10px;
+    background: #2c3e50;
+    color: white;
+    margin-top: 20px;
+}
+
+
+
+
+.container-fluid {
+    max-width: 00px; /* Устанавливает максимальную ширину */
+    margin: 0 auto; /* Центрирует контент */
+    padding: 20px;
+}
+.category-card.horse { border: 3px solid green; }
+.category-card.beef { border: 3px solid yellow; }
+.category-card.lamb { border: 3px solid blue; }
+.category-card.chicken { border: 3px solid red; }
+
+.green { background: #28a745; }
+.yellow { background: #ffc107; }
+.blue { background: #007bff; }
+.red { background: #dc3545; }
+
+.green a { background: #218838; }
+.yellow a { background: #e0a800; }
+.blue a { background: #0056b3; }
+.red a { background: #c82333; }
+.stats {
+    display: flex;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.stat-card {
+    flex: 1;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.stat-card h4 {
+    margin-bottom: 5px;
+    font-size: 18px;
+}
+
+.stat-card p {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* Стиль для бокового меню */
+.sidebar {
+    width: 260px;
+    height: 100vh;
+    background-color: #17202A;
+    color: #fff;
+    position: fixed;
+    padding: 20px 15px;
+    overflow-y: auto;
+}
+
+.sidebar-header {
+    text-align: center;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logo {
+    width: 80px;
+    margin-bottom: 10px;
+}
+
+.profile {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.profile-img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-bottom: 5px;
+}
+
+.role {
+    font-size: 12px;
+    color: #bbb;
+}
+
+.nav-link {
+    color: #bbb;
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.nav-link i {
+    margin-right: 10px;
+}
+
+.nav-link:hover {
+    background-color: #1F2D3D;
+    color: #fff;
+}
+
+.nav-link.active {
+    background-color: #00A99D;
+    color: #fff;
+}
+
+/* Основной контент */
+.content {
+    margin-left: 260px;
+    width: calc(100% - 260px);
+    background-color: #F8F9FA;
+    min-height: 100vh;
+}
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.category-card {
+    border-radius: 8px;
+    text-align: center;
+    width: 220px;
+    background: #fff;
+    border: 2px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.category-card .card-body {
+    padding: 15px;
+}
+
+.category-card .category-icon {
+    width: 50px; /* Размер иконки уменьшен */
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.category-card .category-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+
+.category-card .card-footer {
+    padding: 12px;
+    text-align: center;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.category-card .report-link {
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    color: #2c3e50;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.category-card .report-link i {
+    margin-left: 5px;
+}
+
+/* Цвета границ */
+.border-green {
+    border-color: #4CAF50;
+}
+
+.border-yellow {
+    border-color: #FFD700;
+}
+
+.border-blue {
+    border-color: #007BFF;
+}
+
+.border-red {
+    border-color: #DC3545;
+}
+
+/* Цвета фона кнопок */
+.bg-green {
+    background: #c3e6cb;
+}
+
+.bg-yellow {
+    background: #ffeb99;
+}
+
+.bg-blue {
+    background: #cce5ff;
+}
+
+.bg-red {
+    background: #f8d7da;
+}
+
+.row {
+    margin-right: 0;
+    margin-left: 0;
+}.statistics {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+/* Убираем лишние отступы у карточек */
+.category-card {
+    width: 100%;
+    max-width: 300px; /* Ограничиваем размер карточек */
+    margin: auto;
+}
+
+/* Уменьшаем ширину боковой панели */
+.sidebar {
+    width: 250px;
+    min-width: 250px;
+}
+
+.content {
+    width: calc(100% - 250px); /* Вычитаем ширину бокового меню */
+    overflow-x: hidden; /* Убираем горизонтальный скролл */
+}
+
+/* Делаем заголовки адаптивными */
+h2 {
+    font-size: 1.8rem;
+}
+
+/* Улучшаем отображение кнопок */
+.btn {
+    white-space: nowrap;
+}
+
+/* Ограничиваем ширину выпадающего списка */
+.dropdown-menu {
+    min-width: 200px;
+}
+
+.wrapper {
+    display: flex;
+}
+/* Основные стили */
+.dashboard-container {
+    padding: 20px;
+    background-color: #f8f9fa;
+}
+
+.page-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Дропдаун */
+.input-selection {
+    margin-bottom: 20px;
+}
+
+.dropdown-menu {
+    min-width: 200px;
+}
+
+/* Карточки данных */
+.data-cards {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+    justify-content: center; /* Центрирование карточек */
+}
+.report-text {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.data-card {
+    flex: 1;
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border: 2px solid transparent;
+    width: 200px; /* Фиксированная ширина карточки */
+    max-width: 200px;
+    height: 250px; /* Фиксированная высота карточки */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.data-card img {
+    width: 10px;
+    height: 10px;
+    object-fit: contain;
+    margin-top: 15px;
+}
+
+.data-card h5 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.report-link {
+    display: block;
+    font-size: 14px;
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.05);
+    width: 100%;
+    text-align: center;
+    border-radius: 0 0 10px 10px;
+}
+
+.report-link:hover {
+    text-decoration: underline;
+}
+
+/* Цвета карточек */
+.green { border-color: #28a745; }
+.yellow { border-color: #ffc107; }
+.blue { border-color: #007bff; }
+.red { border-color: #dc3545; }
+
+/* Статистика */
+.statistics {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.stat-card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.stat-card h4 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.stat-card span {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* =======================
+   БОКОВОЕ МЕНЮ (SIDEBAR)
+   ======================= */
+.sidebar {
+    width: 250px;
+    background: #112D4E;
+    color: white;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+.profile-section {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.profile-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+
+.profile-section h6 {
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.profile-section .role {
+    font-size: 12px;
+    color: #AFC2E2;
+}
+
+.profile-dropdown {
+    width: 100%;
+    text-align: left;
+}
+
+.nav {
+    padding-left: 0;
+}
+
+.nav-link {
+    color: white;
+    font-size: 14px;
+    padding: 10px;
+    display: block;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    background: #00ADB5;
+}
+
+/* =======================
+   ВЕРХНЯЯ ПАНЕЛЬ (TOPBAR)
+   ======================= */
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: white;
+    padding: 10px 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.search-bar {
+    width: 250px;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.language-selector {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background: white;
+    cursor: pointer;
+}
+
+.greeting {
+    font-size: 14px;
+    color: #555;
+}
+
+
+
+
+
+/* Стилизация дропдауна */
+
+
+
+
+/* Карточки данных */
+
+
+
+
+
+
+
+
+
+
+
+
+/* Статистика */
+.statistics-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-top: 10px;
+}
+.stat-card {
+    background: white;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.stat-header {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+.config-link {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 14px;
+}
+.stat-body {
+    display: flex;
+    justify-content: space-between;
+}
+.stat-item {
+    text-align: center;
+}
+.stat-number {
+    font-size: 10px;
+    font-weight: bold;
+}
+.stat-label {
+    font-size: 14px;
+    color: #555;
+}
+
+
+
+
+/* =======================
+   КНОПКИ (BUTTONS)
+   ======================= */
+.btn {
+    border-radius: 5px;
+    padding: 8px 12px;
+    font-size: 14px;
+}
+
+.btn-light {
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+}
+
+.btn-light:hover {
+    background-color: #e2e6ea;
+}
+/* Центрирование страницы и адаптация размера */
+/* Изменяем ширину контейнера отчета */
+.report-container {
+    max-width: 100%; /* Было 1100px, теперь 80% */
+    width: 100%; /* Полная ширина */
+    margin: auto;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Заголовок и подзаголовок */
+.report-header {
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+.report-title {
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.report-subtitle {
+    font-size: 16px;
+    color: #6c757d;
+    margin-top: 5px;
+}
+
+/* Блок действий с поиском и кнопками */
+.report-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+/* Поле поиска */
+.search-container {
+    display: flex;
+    align-items: center;
+}
+
+.search-input {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px 0 0 5px;
+}
+
+.search-btn {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 14px;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* Кнопка сохранения */
+.save-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    font-size: 16px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Таблица */
+.report-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.report-table th, .report-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.report-table th {
+    background-color: #f1f1f1;
+    font-weight: bold;
+}
+
+/* Нижние кнопки */
+.report-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+/* Кнопки действий */
+.add-btn, .generate-btn {
+    padding: 12px 18px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.add-btn {
+    background-color: #007bff;
+    color: white;
+}
+
+.generate-btn {
+    background-color: #28a745;
+    color: white;
+}
+
+/* Кнопки удаления */
+.delete-btn {
+    background: none;
+    border: none;
+    color: red;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.delete-btn:hover {
+    text-decoration: underline;
+}
+
+<style>
+.statistics-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.stat-card {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.stat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.stat-body {
+    display: flex;
+    justify-content: space-between;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat-number {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.stat-label {
+    font-size: 14px;
+    color: gray;
+}
+
+.config-link {
+    font-size: 12px;
+    color: #007bff;
+    text-decoration: none;
+}

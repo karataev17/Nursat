@@ -1,0 +1,26 @@
+{% load static %}
+
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="login-container">
+        <img src="{% static 'images/logo.png' %}" alt="Bizdin Et">
+        <h2>Регистрация</h2>
+        <p>Вы можете <a href="{% url 'login' %}">войти в систему здесь!</a></p>
+
+        <form method="POST">
+            {% csrf_token %}
+            <input type="text" name="email" class="form-control" placeholder="Введите свой адрес электронной почты" required>
+            <input type="text" name="username" class="form-control" placeholder="Введите свое имя пользователя" required>
+            <input type="password" name="password1" class="form-control" placeholder="Введите свой пароль" required>
+            <input type="password" name="password2" class="form-control" placeholder="Повторите свой пароль" required>
+            <button type="submit">Регистрация</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bizdin Et</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+</head>
+<body>
+    <div class="wrapper">
+        <!-- Боковое меню -->
+        <nav class="sidebar">
+            <div class="profile text-center">
+                <img src="{% static 'images/avatar.png' %}" class="profile-img" alt="Profile">
+                <h6>Nursat</h6>
+                <span class="role">Super Admin</span>
+            </div>
+         <ul class="nav flex-column">
+            <li><a href="{% url 'dashboard' %}" class="nav-link"><i class="fas fa-database"></i> Ввод данных</a></li>
+            <li><a href="{% url 'analysis' %}" class="nav-link"><i class="fas fa-chart-line"></i> Анализ данных</a></li>
+            <li><a href="{% url 'statistics' %}" class="nav-link"><i class="fas fa-chart-pie"></i> Статистика</a></li>
+            <li><a href="{% url 'report' %}" class="nav-link"><i class="fas fa-file-alt"></i> Отчет</a></li>
+            <hr>
+            <li><a href="{% url 'contacts' %}" class="nav-link"><i class="fas fa-address-book"></i> Контакты</a></li>
+            <li><a href="#" class="nav-link"><i class="fas fa-bell"></i> Уведомления <span class="badge bg-danger">01</span></a></li>
+            <li><a href="#" class="nav-link"><i class="fas fa-comments"></i> Chat with Visitors</a></li>
+            <li><a href="#" class="nav-link"><i class="fas fa-cogs"></i> Настройки приложения</a></li>
+            <li><a href="#" class="nav-link"><i class="fas fa-headset"></i> Техподдержка</a></li>
+                <li>
+                    <form action="{% url 'logout' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger logout-btn">Выйти</button>
+                    </form>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Верхняя панель -->
+        <div class="main-content">
+            <div class="topbar">
+                <div class="search-bar-container">
+                    <img src="{% static 'icons/lupa.png' %}" class="search-icon" alt="Поиск">
+                    <input type="text" class="search-bar" placeholder="Ищите здесь что-нибудь...">
+                </div>
+
+                <div class="d-flex align-items-center">
+                        <div class="language-dropdown">
+                        <img src="{% static 'icons/translate.png' %}" class="lang-icon" alt="Язык">
+                        <select class="language-selector">
+                            <option>Русский (RU)</option>
+                            <option>Қазақша (KZ)</option>
+                            <option>English (EN)</option>
+                        </select>
+                    </div>
+
+                    <div class="greeting-container">
+                        <div class="greeting-box">
+                            <img src="{% static 'icons/sun.png' %}" id="time-icon" class="time-icon">
+                            <span class="greeting" id="current-greeting">Доброе утро</span>
+                        </div>
+                        <span class="date-time" id="current-time"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-content">
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function updateDateTime() {
+            const now = new Date();
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            const time = now.toLocaleTimeString();
+            const date = now.toLocaleDateString('ru-RU', options);
+            document.getElementById("current-time").innerText = `${date} • ${time}`;
+        }
+
+        function updateGreeting() {
+            const now = new Date();
+            const hour = now.getHours();
+            let greeting = "Доброе утро";
+            let iconPath = "{% static 'icons/sun.png' %}";
+
+            if (hour >= 12 && hour < 18) {
+                greeting = "Добрый день";
+            } else if (hour >= 18 || hour < 5) {
+                greeting = "Добрый вечер";
+                iconPath = "{% static 'icons/sun.png' %}";
+            }
+
+            document.getElementById("current-greeting").innerText = greeting;
+            document.getElementById("time-icon").src = iconPath;
+        }
+
+        setInterval(updateDateTime, 1000);
+        updateDateTime();
+        updateGreeting();
+    </script>
+</body>
+</html>
+
+
+<style>.logout-btn {
+    width: 100%;
+    padding: 10px;
+    background: #dc3545;
+    border: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.logout-btn:hover {
+    background: #c82333;
+}
+.wrapper {
+    display: flex;
+}
+
+/* Боковое меню */
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background: #1B2A41;
+    color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 20px;
+}
+
+/* Верхняя панель */
+.main-content {
+    margin-left: 250px;
+    width: calc(100% - 250px);
+    min-height: 100vh;
+    background: #f8f9fa;
+    padding: 20px;
+}
+
+.topbar {
+    background: white;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #ddd;
+    width: 87%;
+    position: fixed;
+    top: 0;
+    left: 250px;
+    height: 60px;
+    z-index: 1000;
+}
+
+/* Поисковая строка */
+.search-bar-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-bar {
+    padding-left: 35px;
+    width: 250px;
+    height: 35px;
+    border-radius: 20px;
+    border: 1px solid #ddd;
+    background: #eef1f5;
+    outline: none;
+}
+
+.search-icon {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    left: 10px;
+}
+
+/* Выбор языка */
+.language-dropdown {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+    padding: 50px;
+}
+
+.lang-icon {
+    width: 22px;
+    height: 22px;
+    margin-right: 8px;
+}
+
+/* Приветствие и время */
+.greeting-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.greeting-box {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-weight: bold;
+}
+
+.time-icon {
+    width: 16px;
+    height: 16px;
+}
+
+/* Верхняя панель */
+.main-content {
+    margin-left: 250px;
+    width: calc(100% - 250px);
+    min-height: 100vh;
+    background: #f8f9fa;
+    padding: 20px;
+}
+
+.topbar {
+    background: white;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #ddd;
+    width: 87%;
+    position: fixed;
+    top: 0;
+    left: 250px;
+    height: 60px;
+    z-index: 1000;
+}
+
+/* Поисковая строка */
+.search-bar-container {
+    position: relative;
+}
+
+.search-bar {
+    padding-left: 35px;
+    width: 250px;
+    height: 35px;
+    border-radius: 20px;
+    border: 1px solid #ddd;
+    background: #eef1f5;
+    outline: none;
+}
+
+.search-icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: gray;
+}
+
+/* Выбор языка */
+.language-dropdown {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+}
+
+.lang-icon {
+    margin-right: 8px;
+    color: gray;
+}
+
+/* Приветствие и время */
+.greeting-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: bold;
+}
+
+.status-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+/* Дневная иконка */
+.sun-icon {
+    background: yellow;
+}
+
+/* Ночная иконка */
+.moon-icon {
+    background: white;
+    box-shadow: 0 0 5px gray;
+}
+
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background: #1B2A41;
+    color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 20px;
+}
+.sidebar ul {
+    padding: 0;
+    list-style: none;
+}
+
+.sidebar ul li a {
+    display: block;
+    color: white;
+    padding: 10px;
+    text-decoration: none;
+    transition: background 0.3s;
+}
+
+.sidebar ul li a:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+.main-content {
+    margin-left: 250px;
+    width: calc(100% - 250px);
+    min-height: 100vh;
+    background: #f8f9fa;
+    padding: 20px;
+}
+
+.topbar {
+    background: white;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #ddd;
+    width: 87%;
+    position: fixed;
+    top: 0;
+    left: 250px;
+    height: 60px;
+    z-index: 1000;
+}
+
+.page-content {
+    margin-top: 80px; /* Отступ от topbar */
+    padding: 20px;
+}
+
+
+
+</style>
+</html>

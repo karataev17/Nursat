@@ -1,0 +1,15 @@
+{% extends "reports/base.html" %}
+
+{% block title %}Добавить продажу - Bizdin Et{% endblock %}
+
+{% block content %}
+<h2>Добавить продажу</h2>
+<form method="POST">
+    {% csrf_token %}
+    <div class="mb-3">
+        {{ form.as_p }}
+    </div>
+    <button type="submit" class="btn btn-success">Добавить</button>
+</form>
+<a href="{% url 'sale_list' %}" class="btn btn-secondary mt-3">Назад</a>
+{% endblock %}

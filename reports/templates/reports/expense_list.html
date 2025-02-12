@@ -1,0 +1,29 @@
+{% extends "reports/base.html" %}
+
+{% block title %}Расходы - Bizdin Et{% endblock %}
+
+{% block content %}
+<h2>Список расходов</h2>
+<a href="{% url 'add_expense' %}" class="btn btn-primary mb-3">Добавить расход</a>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Описание</th>
+            <th>Сумма</th>
+            <th>Дата</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for expense in expenses %}
+        <tr>
+            <td>{{ expense.id }}</td>
+            <td>{{ expense.description }}</td>
+            <td>{{ expense.amount }}</td>
+            <td>{{ expense.date }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

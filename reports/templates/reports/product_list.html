@@ -1,0 +1,31 @@
+{% extends "reports/base.html" %}
+
+{% block title %}Продукты - Bizdin Et{% endblock %}
+
+{% block content %}
+<h2>Список продуктов</h2>
+<a href="{% url 'add_product' %}" class="btn btn-primary mb-3">Добавить продукт</a>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Название</th>
+            <th>Категория</th>
+            <th>Цена</th>
+            <th>Остаток</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for product in products %}
+        <tr>
+            <td>{{ product.id }}</td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.category }}</td>
+            <td>{{ product.price }}</td>
+            <td>{{ product.stock }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

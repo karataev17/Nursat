@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="stats-container">
+    <h2 class="stats-title">Отчеты <span class="highlight"> Отчет о продажах</span></h2>
+    <p class="stats-subtitle">Отчет о продажах.</p>
+
+    <div class="stats-filters">
+        <div class="filter-group">
+            <label for="startDate">Дата начала</label>
+            <input type="date" id="startDate" class="filter-input">
+        </div>
+        <div class="filter-group">
+            <label for="endDate">Дата окончания</label>
+            <input type="date" id="endDate" class="filter-input">
+        </div>
+        <div class="filter-group">
+            <label for="groupSelect">Группа</label>
+            <select id="groupSelect" class="filter-input">
+                <option>- Выбрать группу -</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label for="userSelect">Пользователь</label>
+            <select id="userSelect" class="filter-input">
+                <option>- Выберите Имя пользователя -</option>
+            </select>
+        </div>
+        <button class="download-btn">Скачать отчет</button>
+    </div>
+
+    <div class="stats-content">
+        <div class="chart-container">
+            <h3 class="chart-title">Произведенные продажи</h3>
+            <canvas id="salesChart"></canvas>
+        </div>
+        <div class="table-container">
+            <h3 class="table-title">История заказов</h3>
+            <table class="order-table">
+                <thead>
+                    <tr>
+                        <th>ID Заказ</th>
+                        <th>Дата и Время</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>248555848597</td><td>01 февраля 2025 года 10:25</td></tr>
+                    <tr><td>248555848577</td><td>03 февраля 2025 года 18:25</td></tr>
+                    <tr><td>248555848563</td><td>05 февраля 2025 года 12:10</td></tr>
+                    <tr><td>248555848559</td><td>09 февраля 2025 года 16:30</td></tr>
+                    <tr><td>248555848553</td><td>15 февраля 2025 года, 08:45</td></tr>
+                    <tr><td>248555848548</td><td>21 февраля 2025 года 14:20</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var ctx = document.getElementById('salesChart').getContext('2d');
+        var salesChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['1 Dec', '8 Dec', '16 Dec', '31 Dec'],
+                datasets: [{
+                    label: 'Продажи',
+                    data: [50, 150, 80, 120],
+                    borderColor: 'blue',
+                    backgroundColor: 'rgba(0, 123, 255, 0.2)',
+                    fill: true,
+                    tension: 0.4,
+                    pointRadius: 5
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+    });
+</script>
+
+<style>
+.stats-container { padding: 20px; }
+.stats-title { font-size: 24px; font-weight: bold; }
+.stats-subtitle { color: #666; margin-bottom: 20px; }
+.stats-filters { display: flex; gap: 15px; margin-bottom: 20px; }
+.filter-group { display: flex; flex-direction: column; }
+.filter-input { padding: 10px; border: 1px solid #ddd; border-radius: 5px; }
+.download-btn { background-color: #007bff; color: white; padding: 10px; border: none; border-radius: 5px; cursor: pointer; }
+.stats-content { display: flex; gap: 20px; }
+.chart-container { flex: 2; padding: 20px; background: #fff; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); border-radius: 10px; height: 400px; }
+.chart-title { margin-bottom: 10px; }
+.table-container { flex: 1; background: #fff; padding: 20px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); border-radius: 10px; }
+.table-title { margin-bottom: 10px; }
+.order-table { width: 100%; border-collapse: collapse; }
+.order-table th, .order-table td { padding: 10px; border-bottom: 1px solid #ddd; text-align: left; }
+</style>
+
+{% endblock %}
