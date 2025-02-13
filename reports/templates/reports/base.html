@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+    {% load i18n %}
     {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,20 +21,20 @@
                 <span class="role">Super Admin</span>
             </div>
          <ul class="nav flex-column">
-            <li><a href="{% url 'dashboard' %}" class="nav-link"><i class="fas fa-database"></i> Ввод данных</a></li>
-            <li><a href="{% url 'analysis' %}" class="nav-link"><i class="fas fa-chart-line"></i> Анализ данных</a></li>
-            <li><a href="{% url 'statistics' %}" class="nav-link"><i class="fas fa-chart-pie"></i> Статистика</a></li>
-            <li><a href="{% url 'report' %}" class="nav-link"><i class="fas fa-file-alt"></i> Отчет</a></li>
+            <li><a href="{% url 'dashboard' %}" class="nav-link"><i class="fas fa-database"></i> {% trans "Ввод данных" %}</a></li>
+            <li><a href="{% url 'analysis' %}" class="nav-link"><i class="fas fa-chart-line"></i> {% trans "Анализ данных" %}</a></li>
+            <li><a href="{% url 'statistics' %}" class="nav-link"><i class="fas fa-chart-pie"></i> {% trans "Статистика" %}</a></li>
+            <li><a href="{% url 'report' %}" class="nav-link"><i class="fas fa-file-alt"></i> {% trans "Отчет" %}</a></li>
+
             <hr>
-            <li><a href="{% url 'contacts' %}" class="nav-link"><i class="fas fa-address-book"></i> Контакты</a></li>
-            <li><a href="#" class="nav-link"><i class="fas fa-bell"></i> Уведомления <span class="badge bg-danger">01</span></a></li>
-            <li><a href="#" class="nav-link"><i class="fas fa-comments"></i> Chat with Visitors</a></li>
-            <li><a href="#" class="nav-link"><i class="fas fa-cogs"></i> Настройки приложения</a></li>
-            <li><a href="#" class="nav-link"><i class="fas fa-headset"></i> Техподдержка</a></li>
+            <li><a href="{% url 'contacts' %}" class="nav-link"><i class="fas fa-address-book"></i> {% trans "Контакты" %}</a></li>
+            <li><a href="#" class="nav-link"><i class="fas fa-bell"></i> {% trans "Уведомления" %}<span class="badge bg-danger"> 01</span></a></li>
+            <li><a href="#" class="nav-link"><i class="fas fa-cogs"></i> {% trans "Настройки приложения" %}</a></li>
+            <li><a href="#" class="nav-link"><i class="fas fa-headset"></i> {% trans "Техподдержка" %}</a></li>
                 <li>
                     <form action="{% url 'logout' %}" method="post">
                         {% csrf_token %}
-                        <button type="submit" class="btn btn-danger logout-btn">Выйти</button>
+                        <button type="submit" class="btn btn-danger logout-btn"> {% trans "Выйти" %}</button>
                     </form>
                 </li>
             </ul>
@@ -44,23 +45,27 @@
             <div class="topbar">
                 <div class="search-bar-container">
                     <img src="{% static 'icons/lupa.png' %}" class="search-icon" alt="Поиск">
-                    <input type="text" class="search-bar" placeholder="Ищите здесь что-нибудь...">
+                    <input type="text" class="search-bar" placeholder="{% blocktrans %}Ищите здесь что-нибудь...{% endblocktrans %}">
+
                 </div>
 
                 <div class="d-flex align-items-center">
-                        <div class="language-dropdown">
+                    <div class="language-dropdown">
                         <img src="{% static 'icons/translate.png' %}" class="lang-icon" alt="Язык">
-                        <select class="language-selector">
-                            <option>Русский (RU)</option>
-                            <option>Қазақша (KZ)</option>
-                            <option>English (EN)</option>
-                        </select>
+                        <form action="{% url 'set_language' %}" method="post" class="language-dropdown">
+                            {% csrf_token %}
+                            <select name="language" onchange="this.form.submit()">
+                                <option value="ru" {% if request.LANGUAGE_CODE == "ru" %}selected{% endif %}>Русский (RU)</option>
+                                <option value="kk" {% if request.LANGUAGE_CODE == "kk" %}selected{% endif %}>Қазақша (KZ)</option>
+                                <option value="en" {% if request.LANGUAGE_CODE == "en" %}selected{% endif %}>English (EN)</option>
+                            </select>
+                        </form>
                     </div>
 
                     <div class="greeting-container">
                         <div class="greeting-box">
                             <img src="{% static 'icons/sun.png' %}" id="time-icon" class="time-icon">
-                            <span class="greeting" id="current-greeting">Доброе утро</span>
+                            <span class="greeting" id="current-greeting">{% trans "Доброе утро" %} </span>
                         </div>
                         <span class="date-time" id="current-time"></span>
                     </div>

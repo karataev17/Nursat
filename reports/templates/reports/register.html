@@ -1,25 +1,25 @@
 {% load static %}
-
+{% load i18n %}
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Регистрация</title>
+    <title>{% trans "Регистрация"  %}</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
     <div class="login-container">
         <img src="{% static 'images/logo.png' %}" alt="Bizdin Et">
-        <h2>Регистрация</h2>
-        <p>Вы можете <a href="{% url 'login' %}">войти в систему здесь!</a></p>
+        <h2>{% trans "Регистрация" %}</h2>
+        <p>{% trans "Вы можете" %} <a href="{% url 'login' %}">{% trans "войти в систему здесь!" %}</a></p>
 
         <form method="POST">
             {% csrf_token %}
-            <input type="text" name="email" class="form-control" placeholder="Введите свой адрес электронной почты" required>
-            <input type="text" name="username" class="form-control" placeholder="Введите свое имя пользователя" required>
-            <input type="password" name="password1" class="form-control" placeholder="Введите свой пароль" required>
-            <input type="password" name="password2" class="form-control" placeholder="Повторите свой пароль" required>
-            <button type="submit">Регистрация</button>
+            <input type="text" name="email" class="form-control" placeholder="{% blocktrans %}Введите свой адрес электронной почты{% endblocktrans %}" required>
+            <input type="text" name="username" class="form-control" placeholder="{% blocktrans %}Повторите свой адрес электронной почты{% endblocktrans %}" required>
+            <input type="password" name="password1" class="form-control" placeholder="{% blocktrans %}Введите свой пароль{% endblocktrans %}" required>
+            <input type="password" name="password2" class="form-control" placeholder="{% blocktrans %}Повторите свой пароль{% endblocktrans %}" required>
+            <button type="submit">{% trans "Регистрация" %}</button>
         </form>
     </div>
 </body>

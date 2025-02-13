@@ -1,23 +1,32 @@
 {% load static %}
-
+{% load i18n %}
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Вход в систему</title>
+    <title>{% trans "Вход в систему" %}</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
     <div class="login-container">
         <img src="{% static 'images/logo.png' %}" alt="Bizdin Et">
-        <h2>Вход в систему</h2>
-        <p>Если у вас нет учетной записи, <a href="{% url 'register' %}">зарегистрируйтесь!</a></p>
-
+        <h2>{% trans "Вход в систему" %}</h2>
+        <p>{% trans "Если у вас нет учетной записи," %}<a href="{% url 'register' %}">{% trans "зарегистрируйтесь!" %}</a></p>
+                     <div class="language-dropdown">
+                        <form action="{% url 'set_language' %}" method="post" class="language-dropdown">
+                            {% csrf_token %}
+                            <select name="language" onchange="this.form.submit()">
+                                <option value="ru" {% if request.LANGUAGE_CODE == "ru" %}selected{% endif %}>Русский (RU)</option>
+                                <option value="kk" {% if request.LANGUAGE_CODE == "kk" %}selected{% endif %}>Қазақша (KZ)</option>
+                                <option value="en" {% if request.LANGUAGE_CODE == "en" %}selected{% endif %}>English (EN)</option>
+                            </select>
+                        </form>
+                    </div>
         <form method="POST">
             {% csrf_token %}
-            <input type="text" name="username" class="form-control" placeholder="Введите свой логин" required>
-            <input type="password" name="password" class="form-control" placeholder="Введите пароль" required>
-            <button type="submit">Войти</button>
+            <input type="text" name="username" class="form-control" placeholder="{% blocktrans %}Введите свой логин{% endblocktrans %}" required>
+            <input type="password" name="password" class="form-control" placeholder="{% blocktrans %}Введите пароль{% endblocktrans %}" required>
+            <button type="submit">{% trans "Войти" %}</button>
         </form>
     </div>
 </body>

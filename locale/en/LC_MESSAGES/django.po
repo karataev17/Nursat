@@ -28,8 +28,159 @@ msgstr ""
 #: .\bizdin_et\settings.py:144
 msgid "English"
 msgstr ""
-msgid "Отчет"
-msgstr "Отчет"
 
-msgid "Ежедневный отчет по расходам и доходам"
-msgstr "Ежедневный отчет по расходам и доходам"
+msgid "Ввод данных"
+msgstr "Data entry"
+
+msgid "Анализ данных"
+msgstr "Data Analysis"
+
+msgid "Статистика"
+msgstr "Statistics"
+
+msgid "Отчет"
+msgstr "Report"
+
+msgid "Контакты"
+msgstr "Contacts"
+
+msgid "Уведомления"
+msgstr "Notifications"
+
+msgid "Настройки приложения"
+msgstr "Application Settings"
+
+msgid "Техподдержка"
+msgstr "Technical support"
+
+msgid "Выйти"
+msgstr "Log out"
+
+msgid "Ищите здесь что-нибудь..."
+msgstr "Look for something here..."
+
+msgid "Доброе утро"
+msgstr "Good morning"
+
+
+
+msgid "Вход в систему"
+msgstr "Login to the system"
+
+msgid "Если у вас нет учетной записи,"
+msgstr "If you don't have an account "
+
+msgid "зарегистрируйтесь!"
+msgstr "register"
+
+
+msgid "Введите свой логин"
+msgstr "Enter your username"
+
+
+msgid "Введите пароль"
+msgstr "Enter password"
+
+msgid "Регистрация"
+msgstr "Registration"
+
+msgid "Вы можете"
+msgstr "You can"
+
+msgid "войти в систему здесь!"
+msgstr "log in here!"
+
+msgid "Введите свой адрес электронной почты"
+msgstr "Enter your email address"
+
+msgid "Повторите свой адрес электронной почты"
+msgstr "Repeat your email address"
+
+msgid "Введите свой пароль"
+msgstr "Enter your password"
+
+msgid "Повторите свой пароль"
+msgstr "Repeat your password"
+
+
+msgid "Ручной ввод"
+msgstr "Manual Entry"
+
+msgid "Экспорт в Excel"
+msgstr "Export to Excel"
+
+msgid "Конина"
+msgstr "Horse Meat"
+
+msgid "Говядина"
+msgstr "Beef"
+
+msgid "Баранина"
+msgstr "Lamb"
+
+msgid "Курица"
+msgstr "Chicken"
+
+msgid "Посмотреть подробный отчет"
+msgstr "View Detailed Report"
+
+msgid "Инвентарь"
+msgstr "Inventory"
+
+msgid "Перейти к конфигурации »"
+msgstr "Go to Configuration »"
+
+msgid "Количество в кг"
+msgstr "Quantity in kg"
+
+msgid "Количество в тушах"
+msgstr "Quantity in carcasses"
+
+msgid "Быстрый отчет"
+msgstr "Quick Report"
+
+msgid "Общий оборот за месяц"
+msgstr "Total turnover for the month"
+
+msgid "Общий расход за месяц"
+msgstr "Total expenses for the month"
+
+msgid "Оборот"
+msgstr "Turnover"
+
+msgid "Чистая прибыль"
+msgstr "Net Profit"
+
+msgid "Долг контрагентам"
+msgstr "Debt to Contractors"
+
+msgid "Общий заказчиков"
+msgstr "Total Customers"
+
+msgid "Долг клиентов"
+msgstr "Customer Debt"
+
+msgid "Аналитика продаж за месяц"
+msgstr "Sales Analytics for the Month"
+
+msgid "+ Добавить раздел"
+msgstr "+ Add Section"
+
+msgid "Наименование"
+msgstr "Name"
+
+msgid "Количество"
+msgstr "Quantity"
+
+msgid "Розничная сумма"
+msgstr "Retail Price"
+
+msgid "Сумма себес"
+msgstr "Cost Price"
+
+
+msgid "Рентабельность %"
+msgstr "Profitability %"
+
+msgid "Показано 1 - 8 результатов из 298"
+msgstr "Showing 1 - 8 results out of 298"

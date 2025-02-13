@@ -1,15 +1,15 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% load i18n %}
 {% block content %}
     <div class="dashboard-container">
 
-        <h2 class="page-title">Ввод данных</h2>
+        <h2 class="page-title">{% trans "Ввод данных" %}</h2>
         <div class="dashboard-container">
         <div class="dropdown mb-3">
             <select id="data-input-method" class="language-selector">
-                <option value="manual" selected>Ручной ввод</option>
-                <option value="excel">Экспорт в Excel</option>
+                <option value="manual" selected>{% trans "Ручной ввод" %}</option>
+                <option value="excel">{% trans "Экспорт в Excel" %}</option>
             </select>
         </div>
 
@@ -21,10 +21,10 @@
                         <div class="category-card border-green">
                             <div class="card-body text-center">
                                 <img src="{% static 'images/horse.png' %}" class="category-icon" alt="Конина">
-                                <h5 class="category-title">Конина</h5>
+                                <h5 class="category-title">{% trans "Конина" %}</h5>
                             </div>
                             <div class="card-footer bg-green text-center">
-                                <a href="#" class="report-link">Посмотреть подробный отчет</a>
+                                <a href="#" class="report-link">{% trans "Посмотреть подробный отчет" %}</a>
                             </div>
                         </div>
                     </div>
@@ -32,10 +32,10 @@
                         <div class="category-card border-yellow">
                             <div class="card-body text-center">
                                 <img src="{% static 'images/cow.png' %}" class="category-icon" alt="Говядина">
-                                <h5 class="category-title">Говядина</h5>
+                                <h5 class="category-title">{% trans "Говядина" %}</h5>
                             </div>
                             <div class="card-footer bg-yellow text-center">
-                                <a href="#" class="report-link">Посмотреть подробный отчет</a>
+                                <a href="#" class="report-link">{% trans "Посмотреть подробный отчет" %}</a>
                             </div>
                         </div>
                     </div>
@@ -43,10 +43,10 @@
                         <div class="category-card border-blue">
                             <div class="card-body text-center">
                                 <img src="{% static 'images/sheep.png' %}" class="category-icon" alt="Баранина">
-                                <h5 class="category-title">Баранина</h5>
+                                <h5 class="category-title">{% trans "Баранина" %}</h5>
                             </div>
                             <div class="card-footer bg-blue text-center">
-                                <a href="#" class="report-link">Посмотреть подробный отчет</a>
+                                <a href="#" class="report-link">{% trans "Посмотреть подробный отчет" %}</a>
                             </div>
                         </div>
                     </div>
@@ -54,10 +54,10 @@
                         <div class="category-card border-red">
                             <div class="card-body text-center">
                                 <img src="{% static 'images/chicken.png' %}" class="category-icon" alt="Курица">
-                                <h5 class="category-title">Курица</h5>
+                                <h5 class="category-title">{% trans "Курица" %}</h5>
                             </div>
                             <div class="card-footer bg-red text-center">
-                                <a href="#" class="report-link">Посмотреть подробный отчет</a>
+                                <a href="#" class="report-link">{% trans "Посмотреть подробный отчет" %}</a>
                             </div>
                         </div>
                     </div>
@@ -128,42 +128,42 @@
 <div class="statistics-grid">
     <div class="stat-card">
         <div class="stat-header">
-            <span class="stat-title">Инвентарь</span>
-            <a href="#" class="config-link">Перейти к конфигурации »</a>
+            <span class="stat-title">{% trans "Инвентарь" %}</span>
+            <a href="#" class="config-link">{% trans "Перейти к конфигурации »" %}</a>
         </div>
         <div class="stat-body">
             <div class="stat-item">
                 <span class="stat-number">298</span>
-                <span class="stat-label">Количество в кг</span>
+                <span class="stat-label">{% trans "Количество в кг" %}</span>
             </div>
             <div class="stat-item">
                 <span class="stat-number">24</span>
-                <span class="stat-label">Количество в тушах</span>
+                <span class="stat-label">{% trans "Количество в тушах" %}</span>
             </div>
         </div>
     </div>
 
     <div class="stat-card">
         <div class="stat-header">
-            <span class="stat-title">Быстрый отчет</span>
+            <span class="stat-title">{% trans "Быстрый отчет" %}</span>
             <span class="report-date">01 Ноября 2024 ▼</span>
         </div>
         <div class="stat-body">
             <div class="stat-item">
                 <span class="stat-number">70,856,518</span>
-                <span class="stat-label">Общий оборот за месяц</span>
+                <span class="stat-label">{% trans "Общий оборот за месяц" %}</span>
             </div>
             <div class="stat-item">
                 <span class="stat-number">5,288,255</span>
-                <span class="stat-label">Общий расход за месяц</span>
+                <span class="stat-label">{% trans "Общий расход за месяц" %}</span>
             </div>
         </div>
     </div>
 
     <div class="stat-card">
         <div class="stat-header">
-            <span class="stat-title">Оборот</span>
-            <a href="#" class="config-link">Перейти к конфигурации »</a>
+            <span class="stat-title">{% trans "Оборот" %}</span>
+            <a href="#" class="config-link">{% trans "Перейти к конфигурации »" %}</a>
         </div>
         <div class="stat-body">
             <div class="stat-item">
@@ -172,24 +172,24 @@
             </div>
             <div class="stat-item">
                 <span class="stat-number">6,785,524</span>
-                <span class="stat-label">Чистая прибыль</span>
+                <span class="stat-label">{% trans "Чистая прибыль" %}</span>
             </div>
         </div>
     </div>
 
     <div class="stat-card">
         <div class="stat-header">
-            <span class="stat-title">Долг контрагентам</span>
-            <a href="#" class="config-link">Перейти к конфигурации »</a>
+            <span class="stat-title">{% trans "Долг контрагентам" %}</span>
+            <a href="#" class="config-link">{% trans "Перейти к конфигурации »" %}</a>
         </div>
         <div class="stat-body">
             <div class="stat-item">
                 <span class="stat-number">7,854,985</span>
-                <span class="stat-label">Общий заказчиков</span>
+                <span class="stat-label">{% trans "Общий заказчиков" %}</span>
             </div>
             <div class="stat-item">
                 <span class="stat-number">1,257,554</span>
-                <span class="stat-label">Долг клиентов</span>
+                <span class="stat-label">{% trans "Долг клиентов" %}</span>
             </div>
         </div>
     </div>

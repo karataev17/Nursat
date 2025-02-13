@@ -1,15 +1,16 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 
 {% block content %}
 <div class="analysis-container">
     <div class="header-section">
-        <h2 class="analysis-title">Анализ данных <strong>Косшыгулы 25 (298)</strong></h2>
-        <p class="analysis-subtitle">Аналитика продаж за месяц</p>
+        <h2 class="analysis-title">{% trans "Анализ данных" %} <strong>Косшыгулы 25 (298)</strong></h2>
+        <p class="analysis-subtitle">{% trans "Аналитика продаж за месяц" %}</p>
     </div>
 
     <div class="filter-section">
-        <button class="btn btn-danger">+ Добавить раздел</button>
+        <button class="btn btn-danger">{% trans "+ Добавить раздел" %}</button>
         <select class="data-filter">
             <option>Косшыгулы 25</option>
             <option>Туркестан 18</option>
@@ -21,12 +22,12 @@
     <table class="data-table">
         <thead>
             <tr>
-                <th>Наименование</th>
-                <th>Количество</th>
-                <th>Розничная сумма</th>
-                <th>Сумма себес</th>
-                <th>Чистая прибыль</th>
-                <th>Рентабельность %</th>
+                <th>{% trans "Наименование" %}</th>
+                <th>{% trans "Количество" %}</th>
+                <th>{% trans "Розничная сумма" %}</th>
+                <th>{% trans "Сумма себес" %}</th>
+                <th>{% trans "Чистая прибыль" %}</th>
+                <th>{% trans "Рентабельность %" %}</th>
             </tr>
         </thead>
         <tbody>
@@ -56,7 +57,7 @@
             </tr>
         </tbody>
     </table>
-    <p class="results-count">Показано 1 - 8 результатов из 298</p>
+    <p class="results-count">{% trans "Показано 1 - 8 результатов из 298" %}</p>
 </div>
 
 <style>
