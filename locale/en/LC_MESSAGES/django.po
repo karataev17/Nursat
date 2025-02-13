@@ -179,8 +179,104 @@ msgid "Сумма себес"
 msgstr "Cost Price"
 
 
-msgid "Рентабельность %"
-msgstr "Profitability %"
+msgid "Рентабельность"
+msgstr "Profitability"
 
 msgid "Показано 1 - 8 результатов из 298"
 msgstr "Showing 1 - 8 results out of 298"
+
+msgid "Отчеты"
+msgstr "Reports"
+
+msgid "Отчет о продажах"
+msgstr "Sales Report"
+
+msgid "Дата начала"
+msgstr "Start Date"
+
+msgid "Дата окончания"
+msgstr "End Date"
+
+msgid "Группа"
+msgstr "Group"
+
+msgid "- Выбрать группу -"
+msgstr "- Select Group -"
+
+msgid "Пользователь"
+msgstr "User"
+
+msgid "- Выберите Имя пользователя -"
+msgstr "- Select User Name -"
+
+msgid "Скачать отчет"
+msgstr "Download Report"
+
+msgid "Произведенные продажи"
+msgstr "Completed Sales"
+
+msgid "История заказов"
+msgstr "Order History"
+
+msgid "ID Заказ"
+msgstr "Order ID"
+
+msgid "Дата и Время"
+msgstr "Date and Time"
+
+msgid "Продажи"
+msgstr "Sales"
+
+
+msgid "Ежедневный отчет по расходам и доходам"
+msgstr "Daily report on expenses and income"
+
+msgid "Поиск..."
+msgstr "Search..."
+
+msgid "Сохранить"
+msgstr "Save"
+
+
+msgid "Сумма"
+msgstr "Amount"
+
+
+msgid "Действие"
+msgstr "Action"
+
+msgid "Удалить"
+msgstr "Delete"
+
+msgid "Добавить"
+msgstr "Add"
+
+msgid "Сформулировать отчет"
+msgstr "Generate Report"
+
+msgid "Телефон"
+msgstr "Phone"
+
+msgid "Адрес"
+msgstr "Address"
+
+msgid "Добрый день"
+msgstr "Good afternoon"
+
+msgid "Добрый вечер"
+msgstr "Good evening"
+
+msgid "Продажи"
+msgstr "Sales"
+
+msgid "1 Dec"
+msgstr "1 Dec"
+
+msgid "8 Dec"
+msgstr "8 Dec"
+
+msgid "16 Dec"
+msgstr "16 Dec"
+
+msgid "31 Dec"
+msgstr "31 Dec"

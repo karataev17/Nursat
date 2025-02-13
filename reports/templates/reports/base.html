@@ -77,37 +77,61 @@
             </div>
         </div>
     </div>
+    <span id="morning" style="display: none;">{% trans "Доброе утро" %}</span>
+    <span id="afternoon" style="display: none;">{% trans "Добрый день" %}</span>
+    <span id="evening" style="display: none;">{% trans "Добрый вечер" %}</span>
+    <span id="language-code" style="display: none;">{{ request.LANGUAGE_CODE }}</span>
 
-    <script>
-        function updateDateTime() {
-            const now = new Date();
-            const options = { year: 'numeric', month: 'long', day: 'numeric' };
-            const time = now.toLocaleTimeString();
-            const date = now.toLocaleDateString('ru-RU', options);
-            document.getElementById("current-time").innerText = `${date} • ${time}`;
+<script>
+    function updateDateTime() {
+        const now = new Date();
+        const languageCode = document.getElementById("language-code").innerText.trim();
+
+        // Определяем язык для локализации даты
+        const langMap = {
+            'ru': 'ru-RU',
+            'kk': 'kk-KZ',
+            'en': 'en-US'
+        };
+
+        const locale = langMap[languageCode] || 'ru-RU';  // По умолчанию русский
+
+        // Форматируем дату
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        const time = now.toLocaleTimeString(locale);
+        const date = now.toLocaleDateString(locale, options);
+
+        document.getElementById("current-time").innerText = `${date} • ${time}`;
+    }
+
+    function updateGreeting() {
+        const now = new Date();
+        const hour = now.getHours();
+
+        // Получаем переведенные фразы
+        let morningText = document.getElementById("morning").innerText;
+        let afternoonText = document.getElementById("afternoon").innerText;
+        let eveningText = document.getElementById("evening").innerText;
+
+        let greeting = morningText;  // По умолчанию утро
+        let iconPath = "{% static 'icons/sun.png' %}";
+
+        if (hour >= 12 && hour < 18) {
+            greeting = afternoonText;
+        } else if (hour >= 18 || hour < 5) {
+            greeting = eveningText;
+            iconPath = "{% static 'icons/sun.png' %}";
         }
 
-        function updateGreeting() {
-            const now = new Date();
-            const hour = now.getHours();
-            let greeting = "Доброе утро";
-            let iconPath = "{% static 'icons/sun.png' %}";
+        document.getElementById("current-greeting").innerText = greeting;
+        document.getElementById("time-icon").src = iconPath;
+    }
 
-            if (hour >= 12 && hour < 18) {
-                greeting = "Добрый день";
-            } else if (hour >= 18 || hour < 5) {
-                greeting = "Добрый вечер";
-                iconPath = "{% static 'icons/sun.png' %}";
-            }
+    setInterval(updateDateTime, 1000);
+    updateDateTime();
+    updateGreeting();
+</script>
 
-            document.getElementById("current-greeting").innerText = greeting;
-            document.getElementById("time-icon").src = iconPath;
-        }
-
-        setInterval(updateDateTime, 1000);
-        updateDateTime();
-        updateGreeting();
-    </script>
 </body>
 </html>
 

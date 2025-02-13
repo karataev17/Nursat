@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
+{% load i18n %}
+
 <div class="container contacts-page">
-    <h2 class="page-title">Контакты</h2>
+    <h2 class="page-title">{% trans "Контакты" %}</h2>
     <div class="contact-info">
         <div class="contact-card">
             <i class="bi bi-telephone"></i>
-            <h4>Телефон</h4>
+            <h4>{% trans "Телефон" %}</h4>
             <p>+7 (777) 123-45-67</p>
         </div>
         <div class="contact-card">
@@ -15,7 +17,7 @@
         </div>
         <div class="contact-card">
             <i class="bi bi-geo-alt"></i>
-            <h4>Адрес</h4>
+            <h4>{% trans "Адрес" %}</h4>
             <p>г. Алматы, ул. Абая, 25</p>
         </div>
     </div>

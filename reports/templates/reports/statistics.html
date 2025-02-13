@@ -1,47 +1,47 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% load i18n %}
 {% block content %}
 <div class="stats-container">
-    <h2 class="stats-title">Отчеты <span class="highlight"> Отчет о продажах</span></h2>
-    <p class="stats-subtitle">Отчет о продажах.</p>
+    <h2 class="stats-title">{% trans "Отчеты" %} <span class="highlight"> {% trans "Отчет о продажах" %}</span></h2>
+    <p class="stats-subtitle">{% trans "Отчет о продажах" %}</p>
 
     <div class="stats-filters">
         <div class="filter-group">
-            <label for="startDate">Дата начала</label>
+            <label for="startDate">{% trans "Дата начала" %}</label>
             <input type="date" id="startDate" class="filter-input">
         </div>
         <div class="filter-group">
-            <label for="endDate">Дата окончания</label>
+            <label for="endDate">{% trans "Дата окончания" %}</label>
             <input type="date" id="endDate" class="filter-input">
         </div>
         <div class="filter-group">
-            <label for="groupSelect">Группа</label>
+            <label for="groupSelect">{% trans "Группа" %}</label>
             <select id="groupSelect" class="filter-input">
-                <option>- Выбрать группу -</option>
+                <option>{% trans "- Выбрать группу -" %}</option>
             </select>
         </div>
         <div class="filter-group">
-            <label for="userSelect">Пользователь</label>
+            <label for="userSelect">{% trans "Пользователь" %}</label>
             <select id="userSelect" class="filter-input">
-                <option>- Выберите Имя пользователя -</option>
+                <option>{% trans "- Выберите Имя пользователя -" %}</option>
             </select>
         </div>
-        <button class="download-btn">Скачать отчет</button>
+        <button class="download-btn">{% trans "Скачать отчет" %}</button>
     </div>
 
     <div class="stats-content">
         <div class="chart-container">
-            <h3 class="chart-title">Произведенные продажи</h3>
+            <h3 class="chart-title">{% trans "Произведенные продажи" %}</h3>
             <canvas id="salesChart"></canvas>
         </div>
         <div class="table-container">
-            <h3 class="table-title">История заказов</h3>
+            <h3 class="table-title">{% trans "История заказов" %}</h3>
             <table class="order-table">
                 <thead>
                     <tr>
-                        <th>ID Заказ</th>
-                        <th>Дата и Время</th>
+                        <th>{% trans "ID Заказ" %}</th>
+                        <th>{% trans "Дата и Время" %}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -56,17 +56,30 @@
         </div>
     </div>
 </div>
+<!-- Скрытые переводы для графика -->
+<span id="sales-label" style="display: none;">{% trans "Продажи" %}</span>
+<span id="label-1" style="display: none;">{% trans "1 Дек" %}</span>
+<span id="label-2" style="display: none;">{% trans "8 Дек" %}</span>
+<span id="label-3" style="display: none;">{% trans "16 Дек" %}</span>
+<span id="label-4" style="display: none;">{% trans "31 Дек" %}</span>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        // Получаем переведенные метки из скрытых элементов
+        let salesLabel = document.getElementById("sales-label").innerText;
+        let label1 = document.getElementById("label-1").innerText;
+        let label2 = document.getElementById("label-2").innerText;
+        let label3 = document.getElementById("label-3").innerText;
+        let label4 = document.getElementById("label-4").innerText;
+
         var ctx = document.getElementById('salesChart').getContext('2d');
         var salesChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: ['1 Dec', '8 Dec', '16 Dec', '31 Dec'],
+                labels: [label1, label2, label3, label4],  // Используем переведенные метки
                 datasets: [{
-                    label: 'Продажи',
+                    label: salesLabel, // Используем переведенную подпись
                     data: [50, 150, 80, 120],
                     borderColor: 'blue',
                     backgroundColor: 'rgba(0, 123, 255, 0.2)',
@@ -85,6 +98,7 @@
         });
     });
 </script>
+
 
 <style>
 .stats-container { padding: 20px; }
