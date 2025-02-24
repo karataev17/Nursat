@@ -1,40 +1,51 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load i18n %}
+
 {% block content %}
 <div class="stats-container">
-    <h2 class="stats-title">{% trans "Отчеты" %} <span class="highlight"> {% trans "Отчет о продажах" %}</span></h2>
-    <p class="stats-subtitle">{% trans "Отчет о продажах" %}</p>
+    <h2 class="stats-title">{% trans "Статистика" %}</h2>
 
-    <div class="stats-filters">
-        <div class="filter-group">
-            <label for="startDate">{% trans "Дата начала" %}</label>
-            <input type="date" id="startDate" class="filter-input">
-        </div>
-        <div class="filter-group">
-            <label for="endDate">{% trans "Дата окончания" %}</label>
-            <input type="date" id="endDate" class="filter-input">
-        </div>
-        <div class="filter-group">
-            <label for="groupSelect">{% trans "Группа" %}</label>
-            <select id="groupSelect" class="filter-input">
-                <option>{% trans "- Выбрать группу -" %}</option>
-            </select>
-        </div>
-        <div class="filter-group">
-            <label for="userSelect">{% trans "Пользователь" %}</label>
-            <select id="userSelect" class="filter-input">
-                <option>{% trans "- Выберите Имя пользователя -" %}</option>
-            </select>
-        </div>
-        <button class="download-btn">{% trans "Скачать отчет" %}</button>
-    </div>
 
+    <!-- Фильтры -->
+
+
+    <form method="GET" action="{% url 'statistics' %}" class="stats-filters">
+            <div class="filter-group">
+                <label for="branch">{% trans "Филиал" %}</label>
+                <select id="branch" name="branch" class="filter-input">
+                    <option value="">{% trans "- Выберите филиал -" %}</option>
+                    {% for branch in branches %}
+                        <option value="{{ branch.id }}" {% if branch.id|stringformat:"s" == selected_branch_id %}selected{% endif %}>
+                            {{ branch.name }}
+                        </option>
+                    {% empty %}
+                        <option disabled>{% trans "Нет филиалов" %}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="startDate">{% trans "Дата начала" %}</label>
+                <input type="date" id="startDate" name="start_date" class="filter-input"
+                       value="{{ selected_start_date }}">
+            </div>
+
+             <div class="filter-group">
+                    <label for="endDate">{% trans "Дата окончания" %}</label>
+                    <input type="date" id="endDate" name="end_date" class="filter-input"
+                           value="{{ selected_end_date }}">
+             </div>
+        <button type="submit" class="download-btn">{% trans "Фильтровать" %}</button>
+    </form>
+
+    <!-- График продаж -->
     <div class="stats-content">
         <div class="chart-container">
             <h3 class="chart-title">{% trans "Произведенные продажи" %}</h3>
             <canvas id="salesChart"></canvas>
         </div>
+
+        <!-- История заказов -->
         <div class="table-container">
             <h3 class="table-title">{% trans "История заказов" %}</h3>
             <table class="order-table">
@@ -45,42 +56,32 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr><td>248555848597</td><td>01 февраля 2025 года 10:25</td></tr>
-                    <tr><td>248555848577</td><td>03 февраля 2025 года 18:25</td></tr>
-                    <tr><td>248555848563</td><td>05 февраля 2025 года 12:10</td></tr>
-                    <tr><td>248555848559</td><td>09 февраля 2025 года 16:30</td></tr>
-                    <tr><td>248555848553</td><td>15 февраля 2025 года, 08:45</td></tr>
-                    <tr><td>248555848548</td><td>21 февраля 2025 года 14:20</td></tr>
+                    {% for order in order_history %}
+                        <tr>
+                            <td>{{ order.id }}</td>
+                            <td>{{ order.date }}</td>
+                        </tr>
+                    {% empty %}
+                        <tr><td colspan="2">{% trans "Нет данных" %}</td></tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
     </div>
 </div>
-<!-- Скрытые переводы для графика -->
-<span id="sales-label" style="display: none;">{% trans "Продажи" %}</span>
-<span id="label-1" style="display: none;">{% trans "1 Дек" %}</span>
-<span id="label-2" style="display: none;">{% trans "8 Дек" %}</span>
-<span id="label-3" style="display: none;">{% trans "16 Дек" %}</span>
-<span id="label-4" style="display: none;">{% trans "31 Дек" %}</span>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        // Получаем переведенные метки из скрытых элементов
-        let salesLabel = document.getElementById("sales-label").innerText;
-        let label1 = document.getElementById("label-1").innerText;
-        let label2 = document.getElementById("label-2").innerText;
-        let label3 = document.getElementById("label-3").innerText;
-        let label4 = document.getElementById("label-4").innerText;
-
         var ctx = document.getElementById('salesChart').getContext('2d');
+
         var salesChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: [label1, label2, label3, label4],  // Используем переведенные метки
+                labels: [{% for data in sales_data %} "{{ data.date }}", {% endfor %}],
                 datasets: [{
-                    label: salesLabel, // Используем переведенную подпись
-                    data: [50, 150, 80, 120],
+                    label: "{% trans 'Продажи' %}",
+                    data: [{% for data in sales_data %} {{ data.total_sales }}, {% endfor %}],
                     borderColor: 'blue',
                     backgroundColor: 'rgba(0, 123, 255, 0.2)',
                     fill: true,
@@ -91,14 +92,11 @@
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                scales: {
-                    y: { beginAtZero: true }
-                }
+                scales: { y: { beginAtZero: true } }
             }
         });
     });
 </script>
-
 
 <style>
 .stats-container { padding: 20px; }

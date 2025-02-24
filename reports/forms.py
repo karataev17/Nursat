@@ -1,20 +1,4 @@
-from django import forms
-from .models import Product, Sale, Expense
 
-class ProductForm(forms.ModelForm):
-    class Meta:
-        model = Product
-        fields = ['name', 'category', 'price', 'stock']
-
-class SaleForm(forms.ModelForm):
-    class Meta:
-        model = Sale
-        fields = ['product', 'quantity', 'total_price']
-
-class ExpenseForm(forms.ModelForm):
-    class Meta:
-        model = Expense
-        fields = ['description', 'amount']
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
@@ -36,3 +20,18 @@ class RegisterForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['email', 'username', 'password1', 'password2']
+
+
+from django import forms
+from .models import SaleRecord, Branch
+
+
+class SaleRecordForm(forms.ModelForm):
+    class Meta:
+        model = SaleRecord
+        fields = ['branch', 'product_type', 'name', 'quantity', 'retail_price', 'cost_price', 'date']
+        widgets = {
+            'date': forms.DateInput(attrs={'type': 'date'}),
+            'quantity': forms.NumberInput(attrs={'step': '0.01'}),
+            'product_type': forms.Select(choices=SaleRecord.PRODUCT_CHOICES),  # 👈 Теперь список выбора
+        }

@@ -5,59 +5,201 @@
 {% block content %}
 <div class="analysis-container">
     <div class="header-section">
-        <h2 class="analysis-title">{% trans "Анализ данных" %} <strong>Косшыгулы 25 (298)</strong></h2>
+        <h2 class="analysis-title">{% trans "Анализ данных" %} </h2>
         <p class="analysis-subtitle">{% trans "Аналитика продаж за месяц" %}</p>
     </div>
 
-    <div class="filter-section">
-        <button class="btn btn-danger">{% trans "+ Добавить раздел" %}</button>
-        <select class="data-filter">
-            <option>Косшыгулы 25</option>
-            <option>Туркестан 18</option>
-            <option>Сауран 2</option>
-            <option>Сатпаева 3</option>
-        </select>
-    </div>
+<div class="top-actions">
 
+    <div class="filter-section">
+        <button class="btn btn-danger" id="addDataBtn">{% trans "+ Добавить раздел" %}</button>
+               <select id="branchFilter">
+                {% for branch in branches %}
+                    <option value="{{ branch.id }}" {% if branch.id == selected_branch_id %}selected{% endif %}>
+                        {{ branch.name }}
+                    </option>
+                {% endfor %}
+                </select>
+    </div>
+    <div class="upload-container">
+    <form id="uploadForm" method="post" enctype="multipart/form-data" action="{% url 'upload_excel' %}">
+        {% csrf_token %}
+        <label for="excelFile" class="file-label">
+            <span class="file-text">{% trans "Выберите файл Excel" %}</span>
+            <input type="file" name="excel_file" id="excelFile" accept=".xls,.xlsx" class="file-input">
+        </label>
+        <button type="submit" class="upload-btn">{% trans "Загрузить Excel" %}</button>
+    </form>
+</div>
+<style>
+.upload-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.file-label {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background: #007bff;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.file-label:hover {
+    background: #0056b3;
+}
+
+.file-input {
+    display: none; /* Скрываем стандартное поле загрузки */
+}
+
+.file-text {
+    margin-left: 10px;
+}
+
+.upload-btn {
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.upload-btn:hover {
+    background: #218838;
+}
+</style>
+<script>
+document.getElementById("excelFile").addEventListener("change", function() {
+    const fileLabel = document.querySelector(".file-text");
+    if (this.files.length > 0) {
+        fileLabel.textContent = this.files[0].name;
+    } else {
+        fileLabel.textContent = "{% trans 'Выберите файл Excel' %}";
+    }
+});
+</script>
+
+<script>
+document.getElementById("branchFilter").addEventListener("change", function() {
+    const selectedBranch = this.value;
+    window.location.href = "?branch=" + selectedBranch;
+});
+</script>
     <table class="data-table">
         <thead>
             <tr>
+                <th>{% trans "Филиал" %}</th>
                 <th>{% trans "Наименование" %}</th>
                 <th>{% trans "Количество" %}</th>
                 <th>{% trans "Розничная сумма" %}</th>
-                <th>{% trans "Сумма себес" %}</th>
+                <th>{% trans "Себестоимость" %}</th>
                 <th>{% trans "Чистая прибыль" %}</th>
-                <th>{% trans "Рентабельность" %}</th>
+                <th>{% trans "Дата" %}</th>
+                <th>{% trans "Действие" %}</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>Гов. мякоть</td>
-                <td>9,58</td>
-                <td>53,141.40</td>
-                <td>3849</td>
-                <td>16,267.42</td>
-                <td>44%</td>
-            </tr>
-            <tr>
-                <td>Ассорти колбаски</td>
-                <td>2,74</td>
-                <td>18,058.00</td>
-                <td>4384</td>
-                <td>6,045.84</td>
-                <td>50%</td>
-            </tr>
-            <tr>
-                <td>Куриные колбаски</td>
-                <td>3,95</td>
-                <td>19,994.20</td>
-                <td>3839</td>
-                <td>4,330.15</td>
-                <td>32%</td>
-            </tr>
+            {% for sale in sales %}
+                <tr>
+                    <td>{{ sale.branch.name }}</td>
+                    <td>{{ sale.name }}</td>
+                    <td>{{ sale.quantity }}</td>
+                    <td>{{ sale.retail_price }}</td>
+                    <td>{{ sale.cost_price }}</td>
+                    <td>{{ sale.net_profit }}</td>
+                    <td>{{ sale.date }}</td>
+                    <td>
+                    <form method="post" action="{% url 'delete_sale' sale.id %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="branch" value="{{ selected_branch_id }}">
+                        <button class="delete-btn">{% trans "Удалить" %}</button>
+                    </form>
+                    </td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
-    <p class="results-count">{% trans "Показано 1 - 8 результатов из 298" %}</p>
+</div>
+<div class="pagination">
+    {% if sales.has_previous %}
+        <a href="?page=1{% if selected_branch_id %}&branch={{ selected_branch_id }}{% endif %}" class="page-link">«</a>
+        <a href="?page={{ sales.previous_page_number }}{% if selected_branch_id %}&branch={{ selected_branch_id }}{% endif %}" class="page-link">‹</a>
+    {% endif %}
+
+    <span class="current-page">{% trans "Страница" %} {{ sales.number }} {% trans "из" %} {{ sales.paginator.num_pages }}</span>
+
+    {% if sales.has_next %}
+        <a href="?page={{ sales.next_page_number }}{% if selected_branch_id %}&branch={{ selected_branch_id }}{% endif %}" class="page-link">›</a>
+        <a href="?page={{ sales.paginator.num_pages }}{% if selected_branch_id %}&branch={{ selected_branch_id }}{% endif %}" class="page-link">»</a>
+    {% endif %}
+</div>
+<div id="dataModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>{% trans "Добавить данные" %}</h2>
+        <form method="post" action="{% url 'add_sale' %}">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label>{% trans "Выберите филиал" %}:</label>
+                <select name="branch" class="form-control">
+                    {% for branch in branches %}
+                        <option value="{{ branch.id }}">{{ branch.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label>{% trans "Вид продукта" %}:</label>
+                    <select name="product_type"  class="form-control">
+                        <option value="beef">{% trans "Говядина" %}</option>
+                        <option value="chicken">{% trans "Курица" %}</option>
+                        <option value="lamb">{% trans "Баранина" %}</option>
+                        <option value="horse">{% trans "Конина" %}</option>
+                        <option value="other">{% trans "Другое" %}</option>
+                    </select>
+            </div>
+
+            <div class="form-group">
+                <label>{% trans "Наименование" %}:</label>
+                <input type="text" name="name" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label>{% trans "Количество (кг)" %}:</label>
+                <input type="number" step="0.01" name="quantity"  class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label>{% trans "Розничная сумма" %}:</label>
+                <input type="number" step="0.01" name="retail_price" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label>{% trans "Себестоимость" %}:</label>
+                <input type="number" step="0.01" name="cost_price" class="form-control" required>
+            </div>
+            <div class="form-group">
+               <label>{% trans "Дата продажи" %}:</label>
+                <input type="date" name="date" class="form-control" required>
+            </div>
+
+            <button type="submit" class="save-btn">{% trans "Сохранить" %}</button>
+        </form>
+    </div>
 </div>
 
 <style>
@@ -107,5 +249,118 @@
     font-size: 14px;
     color: #6c757d;
 }
+.modal {
+    display: none; /* По умолчанию скрыто */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Центрирование по горизонтали */
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 40%;
+    max-width: 500px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%); /* Центрирование */
+}
+
+.close {
+    float: right;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.save-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.save-btn:hover {
+    background-color: #218838;
+}
+.save-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.delete-btn {
+    padding: 5px 10px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
 </style>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const modal = document.getElementById("dataModal");
+    const addDataBtn = document.getElementById("addDataBtn");
+    const closeBtn = document.querySelector(".close");
+
+    // Убедитесь, что окно скрыто при загрузке
+    modal.style.display = "none";
+
+    // Открытие при нажатии на кнопку "Добавить раздел"
+    addDataBtn.addEventListener("click", function () {
+        modal.style.display = "block";
+    });
+
+    // Закрытие модального окна
+    closeBtn.addEventListener("click", function () {
+        modal.style.display = "none";
+    });
+
+    // Закрытие при клике вне окна
+    window.addEventListener("click", function (event) {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    });
+});
+
+</script>
 {% endblock %}

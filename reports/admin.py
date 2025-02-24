@@ -1,6 +1,5 @@
 from django.contrib import admin
-from .models import Product, Sale, Expense
+from .models import Branch, SaleRecord
 
-admin.site.register(Product)
-admin.site.register(Sale)
-admin.site.register(Expense)
+admin.site.register(Branch)
+admin.site.register(SaleRecord)

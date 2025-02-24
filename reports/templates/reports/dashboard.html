@@ -24,7 +24,7 @@
                                 <h5 class="category-title">{% trans "Конина" %}</h5>
                             </div>
                             <div class="card-footer bg-green text-center">
-                                <a href="#" class="report-link">{% trans "Посмотреть подробный отчет" %}</a>
+                                <a href="{% url 'detailed_report' 'horse' %}" class="report-link">{% trans "Посмотреть подробный отчет" %}</a>
                             </div>
                         </div>
                     </div>
@@ -35,7 +35,7 @@
                                 <h5 class="category-title">{% trans "Говядина" %}</h5>
                             </div>
                             <div class="card-footer bg-yellow text-center">
-                                <a href="#" class="report-link">{% trans "Посмотреть подробный отчет" %}</a>
+                                <a href="{% url 'detailed_report' 'beef' %}" class="report-link">{% trans "Посмотреть подробный отчет" %}</a>
                             </div>
                         </div>
                     </div>
@@ -46,7 +46,7 @@
                                 <h5 class="category-title">{% trans "Баранина" %}</h5>
                             </div>
                             <div class="card-footer bg-blue text-center">
-                                <a href="#" class="report-link">{% trans "Посмотреть подробный отчет" %}</a>
+                                <a href="{% url 'detailed_report' 'lamb' %}" class="report-link">{% trans "Посмотреть подробный отчет" %}</a>
                             </div>
                         </div>
                     </div>
@@ -57,7 +57,7 @@
                                 <h5 class="category-title">{% trans "Курица" %}</h5>
                             </div>
                             <div class="card-footer bg-red text-center">
-                                <a href="#" class="report-link">{% trans "Посмотреть подробный отчет" %}</a>
+                                <a href="{% url 'detailed_report' 'chicken' %}" class="report-link">{% trans "Посмотреть подробный отчет" %}</a>
                             </div>
                         </div>
                     </div>
@@ -124,20 +124,31 @@
     text-decoration: none;
 }
 </style>
+    <div class="filter-section">
+        <label for="branch">{% trans "Выберите филиал" %}:</label>
+        <select id="branch" name="branch" class="filter-input" onchange="filterBranch()">
+            <option value="">{% trans "Все филиалы" %}</option>
+            {% for branch in branches %}
+                <option value="{{ branch.id }}" {% if branch.id == selected_branch_id %}selected{% endif %}>
+                    {{ branch.name }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
 
 <div class="statistics-grid">
     <div class="stat-card">
         <div class="stat-header">
             <span class="stat-title">{% trans "Инвентарь" %}</span>
-            <a href="#" class="config-link">{% trans "Перейти к конфигурации »" %}</a>
+            <a href="{% url 'analysis' %}" class="config-link">{% trans "Перейти к конфигурации »" %}</a>
         </div>
         <div class="stat-body">
             <div class="stat-item">
-                <span class="stat-number">298</span>
-                <span class="stat-label">{% trans "Количество в кг" %}</span>
+                   <span class="stat-number">{{ total_inventory|floatformat:2 }}</span>
+                    <span class="stat-label">{% trans "Количество в кг" %}</span>
             </div>
             <div class="stat-item">
-                <span class="stat-number">24</span>
+                <span class="stat-number">{{ total_carcasses|floatformat:0 }}</span>
                 <span class="stat-label">{% trans "Количество в тушах" %}</span>
             </div>
         </div>
@@ -146,15 +157,15 @@
     <div class="stat-card">
         <div class="stat-header">
             <span class="stat-title">{% trans "Быстрый отчет" %}</span>
-            <span class="report-date">01 Ноября 2024 ▼</span>
+            <span class="report-date">{{ report_start_date|date:"d F Y" }} - {{ report_end_date|date:"d F Y" }}</span>
         </div>
         <div class="stat-body">
             <div class="stat-item">
-                <span class="stat-number">70,856,518</span>
+                <span class="stat-number">{{ total_turnover|floatformat:2 }}</span>
                 <span class="stat-label">{% trans "Общий оборот за месяц" %}</span>
             </div>
             <div class="stat-item">
-                <span class="stat-number">5,288,255</span>
+                <span class="stat-number">{{ total_expenses|floatformat:2 }}</span>
                 <span class="stat-label">{% trans "Общий расход за месяц" %}</span>
             </div>
         </div>
@@ -163,16 +174,15 @@
     <div class="stat-card">
         <div class="stat-header">
             <span class="stat-title">{% trans "Оборот" %}</span>
-            <a href="#" class="config-link">{% trans "Перейти к конфигурации »" %}</a>
+            <span class="stat-label">{% trans "Чистая прибыль" %}</span>
         </div>
         <div class="stat-body">
+                <div class="stat-item">
+                    <span class="stat-number">{{ total_turnover|floatformat:2 }} тг</span>
+
+                </div>
             <div class="stat-item">
-                <span class="stat-number">39,658,448</span>
-                <span class="stat-label">Косшыгулы 25</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-number">6,785,524</span>
-                <span class="stat-label">{% trans "Чистая прибыль" %}</span>
+                <span class="stat-number">{{ total_profit|floatformat:2 }} тг</span>
             </div>
         </div>
     </div>
@@ -194,7 +204,12 @@
         </div>
     </div>
 </div>
-
+<script>
+    function filterBranch() {
+        let selectedBranch = document.getElementById("branch").value;
+        window.location.href = "?branch=" + selectedBranch;
+    }
+</script>
 
         <script>
                document.addEventListener("DOMContentLoaded", function () {
@@ -220,6 +235,5 @@
     </div>
 
 {% endblock %}
-
 
 </div>

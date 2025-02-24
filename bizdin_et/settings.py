@@ -59,6 +59,7 @@ ROOT_URLCONF = 'bizdin_et.urls'
 import os
 
 
+
 LOGIN_URL = 'login'
 
 

@@ -11,7 +11,7 @@
 
     <div class="report-actions">
         <div class="search-container">
-            <input type="text" class="search-input" placeholder="{% blocktrans %}Поиск...{% endblocktrans %}">
+            <input type="text" class="search-input" id="search" placeholder="{% trans "Поиск..." %}">
             <button class="search-btn"><i class="fas fa-search"></i></button>
         </div>
         <button class="save-btn"><i class="fas fa-save"></i> {% trans "Сохранить" %}</button>
@@ -22,29 +22,174 @@
             <tr>
                 <th>{% trans "Наименование" %}</th>
                 <th>{% trans "Сумма" %}</th>
-                <th>{% trans "Дата и Время" %}</th>
+                <th>{% trans "Дата" %}</th>
+                <th>{% trans "Время" %}</th>
                 <th>{% trans "Действие" %}</th>
             </tr>
         </thead>
-        <tbody>
-            <tr>
-                <td>Оборотка</td>
-                <td>350 000</td>
-                <td>12:25</td>
-                <td><button class="delete-btn"><i class="fas fa-trash-alt"></i> {% trans "Удалить" %}</button></td>
-            </tr>
-            <tr>
-                <td>Зп Муза</td>
-                <td>12 000</td>
-                <td>14:50</td>
-                <td><button class="delete-btn"><i class="fas fa-trash-alt"></i> {% trans "Удалить" %}</button></td>
-            </tr>
-        </tbody>
+            <tbody>
+                {% for report in reports %}
+                    <tr>
+                        <td>{{ report.name }}</td>
+                        <td>{{ report.sum }}</td>
+                        <td>{{ report.date }} {{ report.time }}</td>
+                        <td>
+                         <td>
+                                <button class="delete-btn" data-id="{{ report.id }}">
+                                    <i class="fas fa-trash-alt"></i> {% trans "Удалить" %}
+                                </button>
+</td>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr><td colspan="4">{% trans "Нет данных для отображения" %}</td></tr>
+                {% endfor %}
+            </tbody>
     </table>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById("search").addEventListener("input", function() {
+            let searchValue = this.value.toLowerCase();
+            let rows = document.querySelectorAll(".report-table tbody tr");
 
+            rows.forEach(row => {
+                let name = row.cells[0].innerText.toLowerCase();
+                let sum = row.cells[1].innerText.toLowerCase();
+                let date = row.cells[2].innerText.toLowerCase();
+
+                if (name.includes(searchValue) || sum.includes(searchValue) || date.includes(searchValue)) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        });
+    });
+    </script>
     <div class="report-footer">
         <button class="add-btn"><i class="fas fa-plus"></i> {% trans "Добавить" %}</button>
-        <button class="generate-btn"><i class="fas fa-file-alt"></i> {% trans "Сформулировать отчет" %}</button>
+        <button class="generate-btn" onclick="window.location.href='/export-report/'">
+            <i class="fas fa-file-excel"></i> {% trans "Скачать отчет (Excel)" %}
+        </button>
     </div>
 </div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".delete-btn").forEach(button => {
+        button.addEventListener("click", function () {
+            let reportId = this.getAttribute("data-id");
+
+            fetch(`/delete-report/${reportId}/`, {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": getCSRFToken(),
+                    "Content-Type": "application/json"
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    this.closest("tr").remove();
+                } else {
+                    alert("Ошибка при удалении!");
+                }
+            });
+        });
+    });
+
+    function getCSRFToken() {
+        return document.querySelector("[name=csrfmiddlewaretoken]").value;
+    }
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    function getCSRFToken() {
+        return document.querySelector("[name=csrfmiddlewaretoken]").value;
+    }
+
+    const saveBtn = document.querySelector(".save-btn");
+    const addBtn = document.querySelector(".add-btn");
+    const tableBody = document.querySelector(".report-table tbody");
+
+    // ✅ Обработчик для кнопки "Добавить"
+    if (addBtn) {
+        addBtn.addEventListener("click", function () {
+            let newRow = document.createElement("tr");
+
+            newRow.innerHTML = `
+                <td><input type="text" class="input-name" placeholder="Введите наименование"></td>
+                <td><input type="number" class="input-sum" placeholder="Введите сумму"></td>
+                <td><input type="date" class="input-date"></td>
+                <td><input type="time" class="input-time"></td>
+                <td><button class="delete-btn"><i class="fas fa-trash-alt"></i> Удалить</button></td>
+            `;
+
+            tableBody.appendChild(newRow);
+
+            // ✅ Добавляем обработчик удаления для новой строки
+            newRow.querySelector(".delete-btn").addEventListener("click", function () {
+                newRow.remove();
+            });
+        });
+    }
+
+    // ✅ Обработчик для кнопки "Сохранить"
+    if (saveBtn) {
+        saveBtn.addEventListener("click", function () {
+            let rows = document.querySelectorAll(".report-table tbody tr");
+            let reportData = [];
+
+            rows.forEach(row => {
+                let nameInput = row.querySelector(".input-name");
+                let sumInput = row.querySelector(".input-sum");
+                let dateInput = row.querySelector(".input-date");
+                let timeInput = row.querySelector(".input-time");
+
+                let name = nameInput ? nameInput.value : row.cells[0]?.innerText || "";
+                let sum = sumInput ? sumInput.value : row.cells[1]?.innerText || "";
+                let date = dateInput ? dateInput.value : row.cells[2]?.innerText || "";
+                let time = timeInput ? timeInput.value : row.cells[3]?.innerText || "";
+
+                if (name && sum && date && time) {
+                    reportData.push({ name, sum, date, time });
+                }
+            });
+
+            console.log("Отправка данных:", reportData);
+
+            fetch("/save-report/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": getCSRFToken()
+                },
+                body: JSON.stringify({ reports: reportData })
+            }).then(response => response.json())
+              .then(data => {
+                  alert(data.message);
+                  location.reload();
+              })
+              .catch(error => {
+                  console.error("Ошибка при сохранении:", error);
+                  alert("Ошибка при сохранении данных!");
+              });
+        });
+    }
+    // ✅ Обработчик для поиска
+    document.getElementById("search").addEventListener("input", function () {
+        let filter = this.value.toLowerCase();
+        let rows = document.querySelectorAll(".report-table tbody tr");
+
+        rows.forEach(row => {
+            let name = row.cells[0].innerText.toLowerCase();
+            let sum = row.cells[1].innerText.toLowerCase();
+            let date = row.cells[2].innerText.toLowerCase();
+
+            row.style.display = (name.includes(filter) || sum.includes(filter) || date.includes(filter)) ? "" : "none";
+        });
+    });
+});
+</script>
+
 {% endblock %}
